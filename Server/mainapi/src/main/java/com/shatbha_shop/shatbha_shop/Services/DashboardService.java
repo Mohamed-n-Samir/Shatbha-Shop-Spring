@@ -23,13 +23,13 @@ public class DashboardService {
         ParameterizedTypeReference<List<Order>> typeReference = new ParameterizedTypeReference<List<Order>>() {
         };
 
-        return webClient.get().uri("http://localhost:8081/api/getallorders").retrieve()
+        return webClient.get().uri("http://orderserviceContainer:8081/api/getallorders").retrieve()
                 .bodyToMono(typeReference).block();
     }
 
     public ResponseEntity<SuccessBody> updateOrderByFields(String Id, Map<String, Object> fields) {
 
-        boolean res = webClient.patch().uri("http://localhost:8081/api/updateOrder/" + Id).bodyValue(fields).retrieve()
+        boolean res = webClient.patch().uri("http://orderserviceContainer:8081/api/updateOrder/" + Id).bodyValue(fields).retrieve()
                 .bodyToMono(boolean.class).block();
 
         if (res) {

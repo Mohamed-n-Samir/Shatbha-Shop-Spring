@@ -112,7 +112,7 @@ public class UserService implements UserDetailsService {
 
         orderRequest.setUser(user);
 
-        boolean res = webClient.post().uri("http://localhost:8081/api/createOrder").bodyValue(orderRequest).retrieve()
+        boolean res = webClient.post().uri("http://orderserviceContainer:8081/api/createOrder").bodyValue(orderRequest).retrieve()
                 .bodyToMono(boolean.class).block();
 
         if (res == true) {
@@ -133,7 +133,7 @@ public class UserService implements UserDetailsService {
         ParameterizedTypeReference<List<Order>> typeReference = new ParameterizedTypeReference<List<Order>>() {
         };
 
-        return webClient.get().uri("http://localhost:8081/api/getOrders/" + orderby.getId()).retrieve().bodyToMono(typeReference).block();
+        return webClient.get().uri("http://orderserviceContainer:8081/api/getOrders/" + orderby.getId()).retrieve().bodyToMono(typeReference).block();
     }
 
     @Override
